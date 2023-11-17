@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<style>
+    #submit {
+        margin-top: 10px; 
+    }
+    #leaderBoardButton{
+        margin-bottom: 5px;
+    }
+    #expensesPreferenceContainer { /*"Select the number of expenses to display" heading showing without spacing from left side and no space between this heading and option values (expeensepreferences)*/
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        
+    }
+    body{
+            background-image: url('pg.jpg'); 
+            background-repeat:no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+
+
+</style>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="cointainer">
+        <!--here we are creating form of 6 column width horizontally,we are providing space(offset) to that column by 3 column width from both left and right side(basically keeping space for created column from both right,left side)-->
+        <div class="col-lg-6 col-lg-offset-3">
+            <div id="ui">
+                <h1 class="text-center"><b>Expense Tracker App</b></h1>
+                <form onsubmit="saveToLocalStorage(event)" class="form-group"> <!-- used for optimum spacing -->
+                    <div class="row">
+                        <label>Choose Expense Amount:</label>
+                        <input type="text" id="expense" name="expense" class="form-control" required>
+                    </div>
+                    <div class="row">
+                        <label>Choose Description:</label>
+                        <input type="text" id="Description" name="Description" class="form-control" required>
+                    </div>
+                    <div class="row">
+                        <label>Choose a category:</label>
+                        <select id="category" name="category" class="form-control" required>
+                            <option>Food</option>
+                            <option>movie</option>
+                            <option>fuel</option>
+                            <option>room</option>
+                        </select>
+                        <input type="submit" name="submit" value="Add Expense" id="submit"
+                            class="btn btn-primary btn-block btn-lg">
+                    </div>
+                </form>
+                <div>
+                    <!--creating Buy Premium button below the expense form then including razorpay cdn link like same as axios cdn link-->
+                    <!--i have attached BuY Preimum button and , used razorpay library-->
+                    <button id="Buypremium-button" class="btn btn-info">Buy Premium</button>
+                    <div id="addText"></div>
+                    <button onclick="download()" id="downloadexpense" class="btn btn-success" style="display: none;">Download File</button>
+                    <!--You are currently hiding the "Download Files" button when the page loads because you want to ensure that the button is displayed below the "Show LeaderBoard" button-->
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+                </div>
+                <div id="expensesPreferenceContainer">
+                    <label for="expensesPreference">Select the number of expenses to display:</label>
+                    <select id="expensesPreference" class="btn btn-primary" style="margin: 0;">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="5">5</option>
+                        <option value="8">8</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </div>
+                <div id="pagination"></div>
+
+                <!--<p>Total Expenses:<span id="totalExpenses">Rs 0</span></p> -->
+            </div>
+        </div>
+        <!--output text width is 6 columns,it needs to be displayed after 3 spacing from left,rigth side-->
+        <!--in order to display the output values under form we need to wrap ul id inside id called outputContainer-->
+        <!--its styling we are basically doing here-->
+        <div class="col-lg-6 col-lg-offset-3"> <!-- offset classes are used to create space or offsets for columns within a row-->
+            <div id="outputContainer">
+                <ul id="listOfItems"></ul> <!--listOfItems: This list is intended to store and display the added expenses. Each added expense is represented as an <li> (list item) element within this list-->
+                <ul id="LeaderBoard"></ul> <!--LeaderBoard: This list is intended to display the leaderboard data, showing the names and total amounts of different users-->
+            </div>
+        </div>
+    </div>
+
+    <!-- how do i make network call from one computer to another means i have to use axios. Axios is the code written by someone and we are just downloading that code and with the help of library called axios we are using that code. Also axios helps to communicate between front end to the server,front end run on your com[puter and server runs on cloud -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+    <script src="expensetracker.js"></script>
+
+</body>
+</html>
+
+
+<!--
+#.env file is used for storing personal secret keys,is which you dont want to share with anyone
+# and you dont want to push it to git so we are using .env folder 
+RAZORPAY_KEY_ID='rzp_test_saG0Z18JgbQkTr'
+RAZORPAY_KEY_SECRET='oh0QrxgMWerzQ2MHDUU8i6Eh'
+-->
